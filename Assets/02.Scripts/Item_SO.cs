@@ -11,7 +11,7 @@ public enum EquipSlot
 public class Item_SO : ScriptableObject
 {
     public string itemName;
-    EquipSlot equipSlot;
+    public EquipSlot equipSlot;
 
-    List<StatMod> mods;
+    public List<StatMod> mods;
 }
