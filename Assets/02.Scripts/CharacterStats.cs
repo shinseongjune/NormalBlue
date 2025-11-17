@@ -15,6 +15,7 @@ public enum StatModType
     MUL,
 }
 
+[Serializable]
 public class StatMod
 {
     public StatType statType;
