@@ -127,7 +127,7 @@ public class Stat
 
 public sealed class CharacterStats : MonoBehaviour
 {
-    [SerializeField] private Character_SO data;
+    public Character_SO data;
 
     // 런타임 스탯
     public Stat MaxHP { get; private set; }
@@ -205,5 +205,10 @@ public sealed class CharacterStats : MonoBehaviour
     {
         if (amount <= 0f) return;
         CurrentHP = Mathf.Min(MaxHP.Value, CurrentHP + amount);
+    }
+
+    public void Initialize(Character_SO characterData)
+    {
+        data = characterData;
     }
 }

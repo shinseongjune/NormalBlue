@@ -24,17 +24,17 @@ public class DungeonRunner : MonoBehaviour
         "고블린", "오크", "트롤", "스켈레톤", "좀비"
     };
 
-    public void RunDungeon(Character_SO character, DungeonData dungeonData, int dungeonTier)
+    public void RunDungeon(CharacterStats runnerStats, DungeonData dungeonData, int dungeonTier)
     {
         ClearTextField();
 
         var runner = new Character()
         {
-            charName = character.charName,
-            hp = character.baseMaxHP,
-            baseMaxHP = character.baseMaxHP,
-            baseATK = character.baseATK,
-            baseDEF = character.baseDEF
+            charName = runnerStats.data.charName,
+            hp = runnerStats.data.baseMaxHP,
+            baseMaxHP = runnerStats.data.baseMaxHP,
+            baseATK = runnerStats.data.baseATK,
+            baseDEF = runnerStats.data.baseDEF
         };
         var dungeon = dungeonData.dungeonTiers[dungeonTier];
 
