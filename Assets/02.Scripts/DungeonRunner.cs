@@ -11,6 +11,17 @@ public struct Character
     public float baseDEF;
 }
 
+public struct BattleLogLine
+{
+    public string text;
+}
+
+public class BattleResult
+{
+    public bool isClear;
+    public List<BattleLogLine> logs;
+}
+
 public class DungeonRunner : MonoBehaviour
 {
     [SerializeField] private Transform gameplayTextField;
@@ -28,30 +39,23 @@ public class DungeonRunner : MonoBehaviour
     {
         ClearTextField();
 
-        var runner = new Character()
-        {
-            charName = runnerStats.data.charName,
-            hp = runnerStats.data.baseMaxHP,
-            baseMaxHP = runnerStats.data.baseMaxHP,
-            baseATK = runnerStats.data.baseATK,
-            baseDEF = runnerStats.data.baseDEF
-        };
+        runnerStats.Heal(runnerStats.MaxHP.Value);
         var dungeon = dungeonData.dungeonTiers[dungeonTier];
 
         float atkMul = dungeonData.atkMultiplier;
         float hpMul = dungeonData.hpMultiplier;
 
         int winCount = 0;
-        while (winCount < 10 && runner.hp > 0)
+        while (winCount < 10 && runnerStats.CurrentHP > 0)
         {
             var monster = MakeMonster(dungeon, atkMul, hpMul);
 
-            bool win = Fight(ref runner, monster);
+            var result = Fight(ref runnerStats, monster);
 
             GameObject line = Instantiate(prefab_gameplayText, gameplayTextField);
             line.GetComponent<TextMeshProUGUI>().text = "------------------------------";
 
-            if (win)
+            if (result.isClear)
             {
                 winCount++;
             }
@@ -91,33 +95,53 @@ public class DungeonRunner : MonoBehaviour
         return monster;
     }
 
-    bool Fight(ref Character runner, Character monster)
+    BattleResult Fight(ref CharacterStats runner, Character monster)
     {
+        BattleResult result = new BattleResult()
+        {
+            isClear = false,
+            logs = new List<BattleLogLine>(),
+        };
+
         for (int i = 0; i < 100; i++)
         {
             float currentMonsterHP = monster.hp;
-            monster.hp -= Mathf.Max(1, runner.baseATK - monster.baseDEF);
-            string log = $"{runner.charName}이(가) 공격했다! {monster.charName}에게 {Mathf.RoundToInt(currentMonsterHP - monster.hp)}의 피해를 주었다!";
+            monster.hp -= Mathf.Max(1, runner.ATK.Value - monster.baseDEF);
+            string log = $"{runner.data.charName}이(가) 공격했다! {monster.charName}에게 {Mathf.RoundToInt(currentMonsterHP - monster.hp)}의 피해를 주었다!";
+
+            BattleLogLine logLine = new BattleLogLine()
+            {
+                text = log,
+            };
+            result.logs.Add(logLine);
 
             GameObject newText = Instantiate(prefab_gameplayText, gameplayTextField);
             newText.GetComponent<TextMeshProUGUI>().text = log;
             if (monster.hp <= 0)
             {
-                return true;
+                result.isClear = true;
+                return result;
             }
 
-            float currentRunnerHP = runner.hp;
-            runner.hp -= Mathf.Max(1, monster.baseATK - runner.baseDEF);
-            string log2 = $"{monster.charName}이(가) 공격했다! {runner.charName}에게 {Mathf.RoundToInt(currentRunnerHP - runner.hp)}의 피해를 주었다!";
+            float currentRunnerHP = runner.CurrentHP;
+            runner.TakeDamage(Mathf.Max(1, monster.baseATK - runner.DEF.Value));
+            string log2 = $"{monster.charName}이(가) 공격했다! {runner.data.charName}에게 {Mathf.RoundToInt(currentRunnerHP - runner.CurrentHP)}의 피해를 주었다!";
+
+            BattleLogLine logLine2 = new BattleLogLine()
+            {
+                text = log2,
+            };
+            result.logs.Add(logLine2);
 
             GameObject newText2 = Instantiate(prefab_gameplayText, gameplayTextField);
             newText2.GetComponent<TextMeshProUGUI>().text = log2;
-            if (runner.hp <= 0)
+            if (runner.CurrentHP <= 0)
             {
-                return false;
+                result.isClear = false;
+                return result;
             }
         }
 
-        return false;
+        return result;
     }
 }
