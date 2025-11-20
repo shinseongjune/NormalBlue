@@ -1,16 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GameModel : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public CharacterStats playerStats;
+    public List<Item_SO> inventory = new();
+    public List<Item_SO> equippedItems = new();
 }
