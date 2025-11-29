@@ -22,7 +22,19 @@ public class GameModel : MonoBehaviour
     }
     public void RemoveFromInventory(Item_SO item)
     {
-        if (item == null || playerStats == null) return;
+        if (item == null) return;
+        if (playerStats == null)
+        {
+            var stats = FindFirstObjectByType<CharacterStats>();
+            if (stats != null)
+            {
+                SetPlayer(stats);
+            }
+            else
+            {
+                return;
+            }
+        }
         if (inventory.Contains(item))
         {
             inventory.Remove(item);
@@ -36,7 +48,19 @@ public class GameModel : MonoBehaviour
 
     public void Equip(Item_SO item)
     {
-        if (item == null || playerStats == null) return;
+        if (item == null) return;
+        if (playerStats == null)
+        {
+            var stats = FindFirstObjectByType<CharacterStats>();
+            if (stats != null)
+            {
+                SetPlayer(stats);
+            }
+            else
+            {
+                return;
+            }
+        }
         if (inventory.Contains(item) && !equippedItems.Contains(item))
         {
             equippedItems.Add(item);
@@ -46,7 +70,19 @@ public class GameModel : MonoBehaviour
 
     public void Unequip(Item_SO item)
     {
-        if (item == null || playerStats == null) return;
+        if (item == null) return;
+        if (playerStats == null)
+        {
+            var stats = FindFirstObjectByType<CharacterStats>();
+            if (stats != null)
+            {
+                SetPlayer(stats);
+            }
+            else
+            {
+                return;
+            }
+        }
         if (equippedItems.Contains(item))
         {
             equippedItems.Remove(item);
@@ -56,7 +92,18 @@ public class GameModel : MonoBehaviour
 
     public void UnequipAll()
     {
-        if (playerStats == null) return;
+        if (playerStats == null)
+        {
+            var stats = FindFirstObjectByType<CharacterStats>();
+            if (stats != null)
+            {
+                SetPlayer(stats);
+            }
+            else
+            {
+                return;
+            }
+        }
         foreach (var item in equippedItems)
         {
             playerStats.Unequip(item);

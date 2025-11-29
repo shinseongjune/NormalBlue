@@ -33,10 +33,23 @@ public class DungeonGameController : MonoBehaviour
     // UI 버튼에서 이 메서드를 연결해서 사용
     public void RunSelectedDungeon()
     {
-        if (gameModel == null || gameModel.playerStats == null)
+        if (gameModel == null)
         {
-            Debug.LogWarning("GameModel 또는 playerStats가 설정되어 있지 않습니다.");
+            Debug.LogWarning("GameModel이 설정되지 않았습니다.");
             return;
+        }
+        if (gameModel.playerStats == null)
+        {
+            var stats = FindFirstObjectByType<CharacterStats>();
+            if (stats != null)
+            {
+                gameModel.SetPlayer(stats);
+            }
+            else
+            {
+                Debug.LogWarning("playerStats가 설정되지 않았습니다.");
+                return;
+            }
         }
 
         if (dungeonDatabase == null ||

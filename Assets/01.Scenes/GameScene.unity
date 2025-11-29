@@ -335,7 +335,8 @@ MonoBehaviour:
   dungeonRunner: {fileID: 849510831}
   dungeonIndex: 0
   dungeonTier: 0
-  possibleDrops: []
+  possibleDrops:
+  - {fileID: 11400000, guid: 028fd2e22c33f2848aea888eb70829fc, type: 2}
   dropChance: 1
   autoEquipOnDrop: 1
 --- !u!4 &139457289
@@ -2569,9 +2570,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TestGameManager, Assembly-CSharp
-        m_MethodName: Btn_DoRun
+      - m_Target: {fileID: 139457288}
+        m_TargetAssemblyTypeName: DungeonGameController, Assembly-CSharp
+        m_MethodName: RunSelectedDungeon
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
