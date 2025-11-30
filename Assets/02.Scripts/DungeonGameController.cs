@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class DungeonGameController : MonoBehaviour
 {
@@ -8,8 +10,11 @@ public class DungeonGameController : MonoBehaviour
     [SerializeField] private DungeonDatabase dungeonDatabase;
     [SerializeField] private DungeonRunner dungeonRunner;
 
+    [SerializeField] private TMP_InputField dungeonIndexInputField;
+    [SerializeField] private TMP_Dropdown dungeonTierDropdown;
+
     [Header("Dungeon Selection")]
-    [SerializeField] private int dungeonIndex = 0;    // 인스펙터에서 선택
+    [SerializeField] private int dungeonIndex = 0;
     [SerializeField] private int dungeonTier = 0;
 
     [Header("Drop Settings")]
@@ -28,6 +33,13 @@ public class DungeonGameController : MonoBehaviour
                 gameModel.SetPlayer(stats);
             }
         }
+    }
+
+    private void Start()
+    {
+        SetDungeonIndex();
+        SetDungeonTier();
+        
     }
 
     // UI 버튼에서 이 메서드를 연결해서 사용
@@ -102,5 +114,27 @@ public class DungeonGameController : MonoBehaviour
             gameModel.Equip(drop);
             Debug.Log($"아이템 장비: {drop.itemName}");
         }
+    }
+
+    public void InputField_SetDungeonIndex()
+    {
+        SetDungeonIndex();
+    }
+
+    private void SetDungeonIndex()
+    {
+        dungeonIndex = int.Parse(dungeonIndexInputField.text);
+        print(dungeonIndexInputField.text);
+    }
+
+    public void Dropdown_SetDungeonTier()
+    {
+        SetDungeonTier();
+    }
+
+    private void SetDungeonTier()
+    {
+        dungeonTier = dungeonTierDropdown.value;
+        print(dungeonTierDropdown.value);
     }
 }

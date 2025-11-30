@@ -333,6 +333,8 @@ MonoBehaviour:
   gameModel: {fileID: 1092158539}
   dungeonDatabase: {fileID: 1966648523}
   dungeonRunner: {fileID: 849510831}
+  dungeonIndexInputField: {fileID: 1987254021}
+  dungeonTierDropdown: {fileID: 1844899300}
   dungeonIndex: 0
   dungeonTier: 0
   possibleDrops:
@@ -2859,7 +2861,19 @@ MonoBehaviour:
       m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 139457288}
+        m_TargetAssemblyTypeName: DungeonGameController, Assembly-CSharp
+        m_MethodName: Dropdown_SetDungeonTier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_AlphaFadeSpeed: 0.15
 --- !u!114 &1844899301
 MonoBehaviour:
@@ -3284,7 +3298,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 139457288}
+        m_TargetAssemblyTypeName: DungeonGameController, Assembly-CSharp
+        m_MethodName: InputField_SetDungeonIndex
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
