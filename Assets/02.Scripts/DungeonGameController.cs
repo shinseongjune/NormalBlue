@@ -109,11 +109,11 @@ public class DungeonGameController : MonoBehaviour
 
         gameModel.AddToInventory(drop);
 
-        if (autoEquipOnDrop)
-        {
-            gameModel.Equip(drop);
-            Debug.Log($"아이템 장비: {drop.itemName}");
-        }
+        //if (autoEquipOnDrop)
+        //{
+        //    gameModel.Equip(drop);
+        //    Debug.Log($"아이템 장비: {drop.itemName}");
+        //}
     }
 
     public void InputField_SetDungeonIndex()
